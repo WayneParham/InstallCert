@@ -197,7 +197,12 @@ public class InstallCert {
         }
 
         X509Certificate cert = chain[k];
-        String alias = host + "-" + (k + 1);
+        String alias = host + "-";
+        if (host.equalsIgnoreCase("localhost")) {
+            alias += port;
+        } else {
+            alias += (k + 1);
+        }
         ks.setCertificateEntry(alias, cert);
 
         OutputStream out = new FileOutputStream("jssecacerts");
